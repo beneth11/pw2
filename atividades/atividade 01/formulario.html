@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulário</title>
+  <style>
+    body {
+      font-family: Verdana, sans-serif;
+      padding: 30px;
+      background-color: #f4f4f4;
+      margin: 0;
+      min-height: 100vh;
+      position: relative;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 80px; /* espaço para o botão */
+    }
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      flex: 1;
+    }
+    .form-group input {
+      flex: 2;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .form-group i {
+      margin-right: 10px;
+    }
+    .btn-acessar {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #e63946;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
+    }
+    .btn-acessar:hover {
+      background-color: #c91d2b;
+    }
+  </style>
+  <!-- Ícones do Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <h1>Formulário</h1>
+  <form id="formulario">
+    <div class="form-group">
+      <label for="matricula"><i class="fas fa-id-badge"></i> Matrícula:</label>
+      <input type="text" id="matricula" name="matricula" required>
+    </div>
+    <div class="form-group">
+      <label for="nome"><i class="fas fa-user"></i> Nome:</label>
+      <input type="text" id="nome" name="nome" required>
+    </div>
+    <div class="form-group">
+      <label for="cep"><i class="fas fa-map-pin"></i> CEP:</label>
+      <input type="text" id="cep" name="cep" maxlength="9" onblur="buscarEndereco()" required>
+    </div>
+    <div class="form-group">
+      <label for="endereco"><i class="fas fa-home"></i> Endereço:</label>
+      <input type="text" id="endereco" name="endereco" readonly>
+    </div>
+  </form>
+
+  <button class="btn-acessar" onclick="acessar()">Acessar</button>
+
+  <script>
+    function buscarEndereco() {
+      const cep = document.getElementById("cep").value.replace(/\D/g, '');
+
+      if (cep.length !== 8) {
+        alert("CEP inválido.");
+        return;
+      }
+
+      fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.erro) {
+            alert("CEP não encontrado.");
+            document.getElementById("endereco").value = "";
+          } else {
+            document.getElementById("endereco").value = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+          }
+        })
+        .catch(() => {
+          alert("Erro ao buscar o endereço.");
+        });
+    }
+
+    function acessar() {
+      alert("Botão Acessar clicado!");
+      // Aqui você pode adicionar envio de formulário, redirecionamento, etc.
+    }
+  </script>
+
+</body>
+</html>
