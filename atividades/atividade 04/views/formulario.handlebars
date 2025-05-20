@@ -1,0 +1,33 @@
+<h1>Olá!</h1>
+
+ <div class="container mt-5">
+    <h2>Criar Novo Usuário</h2>
+    <form action="/store" method="post">
+      <div class="mb-3">
+        <label for="username" class="form-label">UserName</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="senha" class="form-label">Senha</label>
+        <input type="password" class="form-control" id="senha" name="password" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="nivel" class="form-label">Nível de Acesso</label>
+        <select class="form-select" id="nivel" name="access_level" required>
+          <option value="0">Usuário Comum</option>
+          <option value="1">Administrador</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Criar Usuário</button>
+    </form>
+  </div>
+
+
